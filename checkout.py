@@ -4,6 +4,14 @@ import datetime
 import traceback
 import subprocess
 
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS2
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
 class LoginDialog(QtWidgets.QDialog):
     def __init__(self):
         super(LoginDialog, self).__init__()
@@ -35,9 +43,56 @@ class LoginDialog(QtWidgets.QDialog):
 
         QtWidgets.QMessageBox.warning(self, "Invalid UID", "The UID is not recognized.")
 
+# Setting up styles for the application
+stylesheet = """
+QWidget {
+    font-family: 'Segoe UI'; /* Consistent font for all widgets */
+    color: #333333; /* Dark grey text for better readability */
+}
+
+QPushButton {s
+    font-size: 16px;
+    color: #FFFFFF; /* White text on buttons for clarity */
+    background-color: #0057B7; /* A calm blue for button background */
+    border-style: solid;
+    border-radius: 10px; /* Rounded corners for a modern look */
+    padding: 10px;
+    margin: 5px;
+}
+
+QPushButton:hover {
+    background-color: #007BFF; /* Slightly lighter blue on hover for visual feedback */
+}
+
+QLabel {
+    font-size: 14px; /* Slightly smaller text for labels than buttons */
+}
+
+QListWidget, QListWidget::item {
+    border: 1px solid #ccc; /* Subtle borders for list items */
+    border-radius: 5px; /* Consistent rounded corners */
+}
+
+QListWidget::item:selected {
+    background-color: #0057B7; /* Dark blue for selected item background */
+    color: #FFFFFF; /* White text for selected items to ensure visibility */
+}
+
+QLineEdit {
+    border-radius: 5px; /* Rounded corners on line edits */
+    padding: 5px; /* Comfortable padding inside text boxes */
+    border: 1px solid #ccc; /* Subtle border for text inputs */
+}
+
+QMessageBox {
+    background-color: #FAFAFA; /* Light grey background for message boxes for soft contrast */
+}
+"""
+
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
+        Dialog.setStyleSheet(stylesheet)  # Apply the stylesheet to the dialog
         Dialog.resize(1236, 657)
 
         # Add a rectangular widget
@@ -72,7 +127,7 @@ class Ui_Dialog(object):
 
         # Add the rectangular widget to the layout
         self.verticalLayoutWidget = QtWidgets.QWidget(Dialog)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 0, 1540, 210))  # Adjusted size
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 0, 1540, 210))  # AdJusted size
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
@@ -82,7 +137,7 @@ class Ui_Dialog(object):
 
         # List widget and command link button
         self.listWidget = QtWidgets.QListWidget(Dialog)
-        self.listWidget.setGeometry(QtCore.QRect(1240, 240, 256, 611))  # Adjusted position
+        self.listWidget.setGeometry(QtCore.QRect(1240, 240, 256, 611))  # AdJusted position
         self.listWidget.setObjectName("listWidget")
 
         self.commandLinkButton = QtWidgets.QCommandLinkButton(Dialog)
@@ -108,7 +163,7 @@ class Ui_Dialog(object):
         self.Tea = QtWidgets.QLabel(self.layoutWidget)
         self.Tea.setMinimumSize(QtCore.QSize(171, 181))
         self.Tea.setText("")
-        self.Tea.setPixmap(QtGui.QPixmap("atai.png"))
+        self.Tea.setPixmap(QtGui.QPixmap(resource_path("Assets\\atai.png")))
         self.Tea.setScaledContents(True)
         self.Tea.setObjectName("Tea")
         self.gridLayout.addWidget(self.Tea, 0, 0, 1, 1)
@@ -116,10 +171,11 @@ class Ui_Dialog(object):
         self.caffe_creme = QtWidgets.QLabel(self.layoutWidget)
         self.caffe_creme.setMinimumSize(QtCore.QSize(171, 181))
         self.caffe_creme.setText("")
-        self.caffe_creme.setPixmap(QtGui.QPixmap("cafe_creme.png"))
+        self.caffe_creme.setPixmap(QtGui.QPixmap(resource_path("Assets\\cafe_creme.png")))
         self.caffe_creme.setScaledContents(True)
         self.caffe_creme.setObjectName("caffe_creme")
         self.gridLayout.addWidget(self.caffe_creme, 0, 1, 1, 1)
+        
 
         self.gridLayout_5.addLayout(self.gridLayout, 0, 0, 1, 1)
 
@@ -129,7 +185,7 @@ class Ui_Dialog(object):
         self.chocolat_chaud = QtWidgets.QLabel(self.layoutWidget)
         self.chocolat_chaud.setMinimumSize(QtCore.QSize(171, 181))
         self.chocolat_chaud.setText("")
-        self.chocolat_chaud.setPixmap(QtGui.QPixmap("chocolat.png"))
+        self.chocolat_chaud.setPixmap(QtGui.QPixmap(resource_path("Assets\\chocolat.png")))
         self.chocolat_chaud.setScaledContents(True)
         self.chocolat_chaud.setObjectName("chocolat_chaud")
         self.gridLayout_4.addWidget(self.chocolat_chaud, 0, 0, 1, 1)
@@ -137,7 +193,7 @@ class Ui_Dialog(object):
         self.noire = QtWidgets.QLabel(self.layoutWidget)
         self.noire.setMinimumSize(QtCore.QSize(171, 181))
         self.noire.setText("")
-        self.noire.setPixmap(QtGui.QPixmap("coffee.png"))
+        self.noire.setPixmap(QtGui.QPixmap(resource_path("Assets\\coffee.png")))
         self.noire.setScaledContents(True)
         self.noire.setObjectName("noire")
         self.gridLayout_4.addWidget(self.noire, 0, 1, 1, 1)
@@ -155,7 +211,7 @@ class Ui_Dialog(object):
         self.ftour = QtWidgets.QLabel(self.layoutWidget)
         self.ftour.setMinimumSize(QtCore.QSize(171, 181))
         self.ftour.setText("")
-        self.ftour.setPixmap(QtGui.QPixmap("ftor.png"))
+        self.ftour.setPixmap(QtGui.QPixmap(resource_path("Assets\\ftor.png")))
         self.ftour.setScaledContents(True)
         self.ftour.setObjectName("ftour")
         self.gridLayout_7.addWidget(self.ftour, 0, 0, 1, 1)
@@ -163,7 +219,7 @@ class Ui_Dialog(object):
         self.Soda = QtWidgets.QLabel(self.layoutWidget)
         self.Soda.setMinimumSize(QtCore.QSize(171, 181))
         self.Soda.setText("")
-        self.Soda.setPixmap(QtGui.QPixmap("soda.png"))
+        self.Soda.setPixmap(QtGui.QPixmap(resource_path("Assets\\soda.png")))
         self.Soda.setScaledContents(True)
         self.Soda.setObjectName("Soda")
         self.gridLayout_7.addWidget(self.Soda, 0, 1, 1, 1)
@@ -176,18 +232,18 @@ class Ui_Dialog(object):
         self.Water = QtWidgets.QLabel(self.layoutWidget)
         self.Water.setMinimumSize(QtCore.QSize(171, 181))
         self.Water.setText("")
-        self.Water.setPixmap(QtGui.QPixmap("water.png"))
+        self.Water.setPixmap(QtGui.QPixmap(resource_path("Assets\\water.png")))
         self.Water.setScaledContents(True)
         self.Water.setObjectName("Water")
         self.gridLayout_8.addWidget(self.Water, 0, 0, 1, 1)
 
-        self.tea2 = QtWidgets.QLabel(self.layoutWidget)
-        self.tea2.setMinimumSize(QtCore.QSize(171, 181))
-        self.tea2.setText("")
-        self.tea2.setPixmap(QtGui.QPixmap("atai.png"))
-        self.tea2.setScaledContents(True)
-        self.tea2.setObjectName("tea2")
-        self.gridLayout_8.addWidget(self.tea2, 0, 1, 1, 1)
+        self.Jus = QtWidgets.QLabel(self.layoutWidget)
+        self.Jus.setMinimumSize(QtCore.QSize(171, 181))
+        self.Jus.setText("")
+        self.Jus.setPixmap(QtGui.QPixmap(resource_path("Assets\\Juices.jpg")))
+        self.Jus.setScaledContents(True)
+        self.Jus.setObjectName("Jus")
+        self.gridLayout_8.addWidget(self.Jus, 0, 1, 1, 1)
 
         self.gridLayout_6.addLayout(self.gridLayout_8, 0, 1, 1, 1)
 
@@ -206,14 +262,14 @@ class MyDialog(QtWidgets.QDialog, Ui_Dialog):
         super(MyDialog, self).__init__()
         self.setupUi(self)
         self.waiter_name = waiter_name  # Set the waiter_name attribute
-        self.item_prices = {"Tea": 7.00, "Caffe Creme": 10.00, "Chocolat Chaud": 10.00, "Noire": 7.00, "Ftour": 25.00, "Soda": 10.0, "Water": 2.00, "Tea 2": 7.00}
+        self.item_prices = {"Tea": 7.00, "Caffe Creme": 8.00, "Chocolat Chaud": 8.00, "Noire": 7.00, "Ftour": 25.00, "Soda": 12.0, "Water": 2.00, "Jus": 18.00}
         self.total = 0.0
         self.receipt_id_counter = 0  # Counter for receipt ID
         self.receipts_today = self.get_receipts_count()  # Counter for receipts generated today
         self.total_prices = []  # List to store total prices of receipts
 
         # Initialize total of totals from recette.txt if it exists
-        self.total_of_totals = self.initialize_total_of_totals()
+        self.total_of_totals = self.update_total_of_totals_from_file()
 
         # Set up the header information
         self.date_time_label.setText(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
@@ -237,7 +293,7 @@ class MyDialog(QtWidgets.QDialog, Ui_Dialog):
         self.ftour.mousePressEvent = lambda event: self.on_label_clicked("Ftour")
         self.Soda.mousePressEvent = lambda event: self.on_label_clicked("Soda")
         self.Water.mousePressEvent = lambda event: self.on_label_clicked("Water")
-        self.tea2.mousePressEvent = lambda event: self.on_label_clicked("Tea 2")
+        self.Jus.mousePressEvent = lambda event: self.on_label_clicked("Jus")
 
 
         # Show the dialog in fullscreen
@@ -246,7 +302,7 @@ class MyDialog(QtWidgets.QDialog, Ui_Dialog):
     def get_receipts_count(self):
         # Get the receipts count of the day from the receipts folder
         current_date = datetime.datetime.now().strftime("%Y-%m-%d")
-        receipts_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Receipts", current_date)
+        receipts_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), resource_path("Receipts"), current_date)
         if os.path.exists(receipts_folder):
             return len([name for name in os.listdir(receipts_folder) if os.path.isfile(os.path.join(receipts_folder, name))])
         else:
@@ -269,7 +325,7 @@ class MyDialog(QtWidgets.QDialog, Ui_Dialog):
         remove_button.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight | QtCore.Qt.AlignmentFlag.AlignTop)
         remove_button.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         remove_button.setMinimumSize(QtCore.QSize(30, 30))  # Set a minimum size for the remove button
-        remove_button.setContentsMargins(0, -5, 0, 0)  # Adjust margin to move the X up
+        remove_button.setContentsMargins(0, -5, 0, 0)  # AdJust margin to move the X up
         remove_button.setFont(QtGui.QFont("Arial", 14, weight=QtGui.QFont.Weight.Bold))  # Set bold font
         self.listWidget.setItemWidget(item, remove_button)
 
@@ -289,20 +345,28 @@ class MyDialog(QtWidgets.QDialog, Ui_Dialog):
         # Update total text for the commandLinkButton
         self.total_label_command.setText(f"Total: {self.total:.2f} MAD")
 
-    def initialize_total_of_totals(self):
+    def show_total(self):
+        # Update the total_of_totals from recette.txt
+        self.update_total_of_totals_from_file()
+        QtWidgets.QMessageBox.information(self, "Total of Totals", f"The total of totals is: {self.total_of_totals:.2f} MAD")
+    
+    def update_total_of_totals_from_file(self):
         current_date = datetime.datetime.now().strftime("%Y-%m-%d")
-        receipts_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Receipts", current_date)
+        receipts_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), resource_path("Receipts"), current_date)
         recette_filename = os.path.join(receipts_folder, 'recette.txt')
         if os.path.exists(recette_filename):
             with open(recette_filename, 'r') as file:
-                existing_total = float(file.read().strip())
-                return existing_total
-        return 0.0
+                self.total_of_totals = float(file.read().strip())
+        else:
+            self.total_of_totals = 0.0
 
-    def show_total(self):
-        QtWidgets.QMessageBox.information(self, "Total of Totals", f"The total of totals is: {self.total_of_totals:.2f} MAD")
 
     def generate_receipt_text(self):
+        # Check if the list is empty
+        if self.listWidget.count() == 0:
+            QtWidgets.QMessageBox.warning(self, "Empty List", "The list is empty. Please add items before printing.")
+            return
+
         try:
             self.receipt_id_counter += 1
             self.receipts_today += 1
@@ -322,13 +386,11 @@ class MyDialog(QtWidgets.QDialog, Ui_Dialog):
                 items.append((item_name.strip(), item_price))
             
             total = sum(item[1] for item in items)
-            self.total_prices.append(total)
-            total_of_totals = sum(self.total_prices)
 
             # Get current date and time
             current_date = datetime.datetime.now().strftime("%Y-%m-%d")
             current_time = datetime.datetime.now().strftime("%H-%M-%S")
-            receipts_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Receipts", current_date)
+            receipts_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), resource_path("Receipts"), current_date)
             if not os.path.exists(receipts_folder):
                 os.makedirs(receipts_folder)
 
@@ -354,6 +416,7 @@ class MyDialog(QtWidgets.QDialog, Ui_Dialog):
                 file.write(f"\t\t{message.title()}\n\n")
                 file.write("*"*50 + "\n")
 
+            self.total_prices.clear()
             self.total_prices.append(total)  # Add total to total prices list
             total_of_totals = sum(self.total_prices)  # Calculate the total of totals
             self.print_receipt(text_filename)
@@ -390,22 +453,23 @@ class MyDialog(QtWidgets.QDialog, Ui_Dialog):
 
     def log_error(self, error_message):
         # Log the error message to the exit log file
-        log_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), "LOG")
+        log_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), resource_path("LOG"))
         log_filename = os.path.join(log_folder, f"exit_log_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.txt")
         with open(log_filename, 'a') as log_file:
             log_file.write(str(error_message) + '\n')
 
-    def save_total_of_totals(self, folder_path, total_of_totals):
+    def save_total_of_totals(self, folder_path, new_receipt_total):
         # Save the total of totals in a text file named 'recette.txt' in the receipt folder
         recette_filename = os.path.join(folder_path, 'recette.txt')
         try:
-            # If the recette.txt already exists, read its content and update the total of totals
+            # Check if the recette.txt already exists, read its content and update the total of totals
             if os.path.exists(recette_filename):
                 with open(recette_filename, 'r') as file:
-                    existing_content = file.read().strip()
-                # Convert existing content to float and add the new total of totals
-                existing_total = float(existing_content)
-                total_of_totals += existing_total
+                    existing_total = float(file.read().strip())
+                total_of_totals = existing_total + new_receipt_total
+            else:
+                total_of_totals = new_receipt_total
+
             # Write the new total of totals to the recette.txt file
             with open(recette_filename, 'w') as file:
                 file.write(f"{total_of_totals:.2f}")
